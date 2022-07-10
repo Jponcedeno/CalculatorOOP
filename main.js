@@ -2,8 +2,13 @@ class Calculator {
   constructor(lastOperandTextElement, recentOperandTextElement) {
     this.lastOperandTextElement = lastOperandTextElement;
     this.recentOperandTextElement = recentOperandTextElement;
+    this.clear();
   }
-  clear() {}
+  clear() {
+    this.currentOperand = "";
+    this.previousOperand = "";
+    this.operation = undefined;
+  }
 
   delete() {}
 
