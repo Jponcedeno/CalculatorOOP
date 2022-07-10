@@ -5,20 +5,24 @@ class Calculator {
     this.clear();
   }
   clear() {
-    this.currentOperand = "";
-    this.previousOperand = "";
+    this.lastOperand = "";
+    this.recentOperand = "";
     this.operation = undefined;
   }
 
   delete() {}
 
-  appendNumber() {}
+  appendNumber(number) {
+    this.recentOperand = number;
+  }
 
-  chooseOperation() {}
+  chooseOperation(operation) {}
 
   compute() {}
 
-  updateDisplay() {}
+  updateDisplay() {
+    this.recentOperandTextElement.innerText = this.recentOperand;
+  }
 }
 
 const numberButtons = document.querySelectorAll("[data-number]");
@@ -32,6 +36,13 @@ const recentOperandTextElement = document.querySelector(
 );
 
 const calculator = new Calculator(
-  previousOperandTextElement,
-  currentOperandTextElement
+  lastOperandTextElement,
+  recentOperandTextElement
 );
+
+numberButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    calculator.appendNumber(button.innerText);
+    calculator.updateDisplay();
+  });
+});
