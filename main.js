@@ -13,7 +13,8 @@ class Calculator {
   delete() {}
 
   appendNumber(number) {
-    this.recentOperand = number;
+    if (number === "." && this.recentOperand.includes(".")) return;
+    this.recentOperand = this.recentOperand.toString() + number.toString();
   }
 
   chooseOperation(operation) {}
