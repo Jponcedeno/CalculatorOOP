@@ -18,12 +18,40 @@ class Calculator {
   }
 
   chooseOperation(operation) {
+    if (this.recentOperand === "") return;
+    if (this.lastOperand !== "") {
+      this.compute();
+    }
     this.operation = operation;
     this.lastOperand = this.recentOperand;
     this.recentOperand = "";
   }
 
-  compute() {}
+  compute() {
+    let computed;
+    const last = parseFloat(this.lastOperand);
+    const recent = parseFloat(this.recentOperand);
+    if (isNaN(last) || isNaN(recent)) return;
+    switch (this.operation) {
+      case "+":
+        computed = last + recent;
+        break;
+      case "-":
+        computed = last - recent;
+        break;
+      case "*":
+        computed = last * recent;
+        break;
+      case "÷":
+        computed = last / recent;
+        break;
+      default:
+        return;
+    }
+    this.recentOperand = computed;
+    this.operation = undefined;
+    this.lastOperand = "";
+  }
 
   updateDisplay() {
     this.recentOperandTextElement.innerText = this.recentOperand;
@@ -58,4 +86,9 @@ operationButtons.forEach((button) => {
     calculator.chooseOperation(button.innerText);
     calculator.updateDisplay();
   });
+});
+
+equalsButton.addEventListener("click", (button) => {
+  calculator.compute();
+  calculator.updateDisplay();
 });
