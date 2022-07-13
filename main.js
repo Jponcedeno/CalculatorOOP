@@ -17,12 +17,17 @@ class Calculator {
     this.recentOperand = this.recentOperand.toString() + number.toString();
   }
 
-  chooseOperation(operation) {}
+  chooseOperation(operation) {
+    this.operation = operation;
+    this.lastOperand = this.recentOperand;
+    this.recentOperand = "";
+  }
 
   compute() {}
 
   updateDisplay() {
     this.recentOperandTextElement.innerText = this.recentOperand;
+    this.lastOperandTextElement.innerText = this.lastOperand;
   }
 }
 
@@ -44,6 +49,13 @@ const calculator = new Calculator(
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
     calculator.appendNumber(button.innerText);
+    calculator.updateDisplay();
+  });
+});
+
+operationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    calculator.chooseOperation(button.innerText);
     calculator.updateDisplay();
   });
 });
